@@ -10,6 +10,7 @@ services:
       OLCRTC_CARRIER: "${OLCRTC_CARRIER:?set OLCRTC_CARRIER (jitsi, telemost, wbstream, none)}"
       OLCRTC_TRANSPORT: "${OLCRTC_TRANSPORT:-datachannel}"
       OLCRTC_ROOM_ID: "${OLCRTC_ROOM_ID:-}"
+      OLCRTC_CLIENT_ID: "${OLCRTC_CLIENT_ID:-}"
       OLCRTC_KEY: "${OLCRTC_KEY:-}"
       OLCRTC_KEY_FILE: "${OLCRTC_KEY_FILE:-/var/lib/olcrtc/key.hex}"
       OLCRTC_DNS: "${OLCRTC_DNS:-8.8.8.8:53}"
