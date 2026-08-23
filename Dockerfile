@@ -2,7 +2,8 @@
 #
 # Re-introduced locally for the self-hosted deployments under .local/
 # (upstream openlibrecommunity/olcrtc removed Docker support).
-# Base revision: f616f57bb3a90740f1755922ffeaa7acc5cfe4ed
+# Exact deployed source revision is stamped into the image label at build
+# time (org.opencontainers.image.revision) - see .local/*/update.sh.
 #
 # Runtime entrypoint contract since the YAML-config refactor:
 #   olcrtc <config.yaml>   (see .local/*/config.*.yaml)
@@ -32,8 +33,11 @@ RUN --mount=type=cache,target=/go/pkg/mod \
 
 FROM alpine:${ALPINE_VERSION} AS runtime
 
+# Source revision baked into image metadata. .local/*/update.sh exports
+# REVISION=$(git rev-parse HEAD); plain manual builds fall back to "dev".
+ARG REVISION=dev
 LABEL org.opencontainers.image.title="olcrtc (self-hosted build)" \
-      org.opencontainers.image.revision=f616f57bb3a90740f1755922ffeaa7acc5cfe4ed \
+      org.opencontainers.image.revision=${REVISION} \
       org.opencontainers.image.source=https://github.com/openlibrecommunity/olcrtc
 
 RUN apk add --no-cache ca-certificates tzdata && \
